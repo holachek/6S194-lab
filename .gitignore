@@ -1,0 +1,19 @@
+
+# Cypress Temp Files
+# from https://github.com/github/gitignore/pull/2086/commits/5a355ed010640b689e06c589e38019bff81c9a15
+# Project Settings
+*.cywrk.*
+*.cyprj.*
+
+# Generated Assets and Resources
+Debug/
+Release/
+Export/
+*/codegentemp
+*/Generated_Source
+*_datasheet.pdf
+*_timing.html
+*.cycdx
+*.cyfit
+*.rpt
+*.svd
