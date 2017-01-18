@@ -5,6 +5,8 @@
 #include "ssd1331.h"
 #include "ssd1351.h"
 
+#define INA219_SHUNT_RESISTANCE 0.1
+
 uint8_t I2CM_ReadBuf[100];
 uint8_t I2CM_WriteBuf[100];
 
@@ -173,7 +175,7 @@ int main()
     uint16_t config = INA219_REG_CONFIG_BRNG_16V |
                       INA219_REG_CONFIG_PG_4 |
                       INA219_REG_CONFIG_BADC_12BIT |
-                      INA219_REG_CONFIG_SADC_12BIT_64S |
+                      INA219_REG_CONFIG_SADC_12BIT_32S |
                       INA219_REG_CONFIG_MODE_SVOLT_BVOLT_CONT;
     
     I2CM_I2CMasterSendStart(INA219_ADDRESS, I2CM_I2C_WRITE_XFER_MODE);
@@ -202,44 +204,50 @@ int main()
     
     while(I2CM_I2CMasterStatus() == I2CM_I2C_MSTAT_XFER_INP);
         
-    int j, k;
+    int r, g, b;
     
     for(;;)
     {
         
-        for (j=0; j<256; j++){
-            for (k=0; k<10; k++){
-            drawRectangle(Wheel(j & 0xFF));        
-        
-            // Read current register location
-            I2CM_I2CMasterReadBuf(INA219_ADDRESS, I2CM_ReadBuf, 2, I2CM_I2C_MODE_REPEAT_START);
-            while(I2CM_I2CMasterStatus() == I2CM_I2C_MSTAT_XFER_INP);
-           
-            CyDelay(10);
-            
-            
-            uint16_t shunt_reg_val = (I2CM_ReadBuf[0] << 8) + (I2CM_ReadBuf[1]);
-            /*
-            sprintf(output, "I2C Read Shunt Reg Value: %04X\r\n", shunt_reg_val);
-            UART_UartPutString(output);
-            */
-            
-            // sprintf(output, "Wheel Position: %i\t\t", j);
-            
-            // MegunoLink XY plotting syntax: {XYPLOT|DATA|Series|yourXdata|yourYdata}
-            sprintf(output, "{XYPLOT|DATA|Series|%i", j);
-            UART_UartPutString(output);
-            
-            double shunt_voltage = (double)shunt_reg_val / 100.0;
-            // sprintf(output, "Shunt Voltage: %.2f mV\r\n\n", shunt_voltage);
-            sprintf(output, "|%.2f}\r\n", shunt_voltage);
-            UART_UartPutString(output);
-            
-            
-            CyDelay(80);
-            }
-        
-        }
+        // 16-bit color read
+        for (r=0; r<32; r++){
+            for (g=0; g<64; g++){
+                for (b=0; b<32; b++){
+                    
+                    uint16_t current_color = makeColor(r, g, b);
+                    drawRectangle(current_color);  
+                    CyDelay(20);
+                
+                    // Read current register location
+                    I2CM_I2CMasterReadBuf(INA219_ADDRESS, I2CM_ReadBuf, 2, I2CM_I2C_MODE_REPEAT_START);
+                    while(I2CM_I2CMasterStatus() == I2CM_I2C_MSTAT_XFER_INP);
+                    
+                    uint16_t shunt_reg_val = (I2CM_ReadBuf[0] << 8) + (I2CM_ReadBuf[1]);
+                    double shunt_voltage = (double)shunt_reg_val / 100.0;
+                    double display_current = (double)shunt_voltage / INA219_SHUNT_RESISTANCE;
+                    
+                    /*
+                    sprintf(output, "I2C Read Shunt Reg Value: %04X\r\n", shunt_reg_val);
+                    UART_UartPutString(output);
+                    */
+                    
+                    // sprintf(output, "Wheel Position: %i\t\t", j);
+                    
+                    // MegunoLink XY plotting syntax: {XYPLOT|DATA|Series|yourXdata|yourYdata}
+                    sprintf(output, "{XYPLOT|DATA|Series|%i", current_color);
+                    UART_UartPutString(output);
+                    
+                    // sprintf(output, "Shunt Voltage: %.2f mV\r\n\n", shunt_voltage);
+                    sprintf(output, "|%.3f}\t\t", display_current);
+                    UART_UartPutString(output);
+                    
+                    // print out r, g, b values
+                    sprintf(output, "[r:%i, g:%i, b:%i]\r\n", r, g, b);
+                    UART_UartPutString(output);
+                    
+                } // end b loop
+            } // end g loop
+        } // end r loop
         
     }
 }
