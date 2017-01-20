@@ -2,7 +2,9 @@
 OLED color vs power characterization tools for Cypress PSoc 4.
 
 ### Overview
-This project aims to understand how displaying different colors on an OLED display changes the power dissipation. Put another way, how do OLED displays deviate from non-ideal linear behavior?
+This project aims to understand how displaying different colors on an OLED display changes power consumed. Put another way, how do OLED displays deviate from non-ideal linear behavior? For this project I used a Cypress PSoC eval board with an INA219 voltage/current monitor and collection of Adafruit OLED displays on breakout boards.
+
+Here are some preliminary results:
 
 ![TestCycle Demo](Analysis/TestCycleDemo.gif)
 <img src="Analysis/TestCycleResults.png" alt="TestCycle Results" width="275">
