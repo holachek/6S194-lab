@@ -26,6 +26,7 @@ Arduino is extremely useful for fast prototyping, but one of the goals for this 
 - [Adafruit INA219 Breakout Board](https://www.adafruit.com/product/904)
 - 3x [Adafruit 0.96" OLED Display Breakout Board](https://www.adafruit.com/products/684)
 - Other [OLED Displays](https://www.adafruit.com/products/1431) for comparison
+- For debug: [Saleae Logic 8](https://www.saleae.com/) logic analyzer
 
 ### Software
 - [PSoC Creator 4.0](http://www.cypress.com/products/psoc-creator-integrated-design-environment-ide) on Windows 10
