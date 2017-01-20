@@ -1,11 +1,16 @@
 # 6S194-lab
-OLED color vs power charaterization tools for Cypress PSoc 4.
+OLED color vs power characterization tools for Cypress PSoc 4.
 
 ### Overview
-Coming soon
+This project aims to understand how displaying different colors on an OLED display changes the power dissipation. Put another way, how do OLED displays deviate from non-ideal linear behavior?
+
+![TestCycle Demo](Analysis/TestCycleDemo.gif)
+![TestCycle Results](Analysis/TestCycleResults.png)
+
 
 ### Project Motivation
-TBD
+Many wearable devices today have a large screen, but are fundamentally limited in maximum energy storage by technology/size of the battery. This project was a chance to understand a bit more about energy-efficient optimizations one could make to the output of a display.
+
 
 ### Hardware
 - PSoC CY8CKIT-042-BLE Pioneer Kit
