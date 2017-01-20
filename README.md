@@ -14,9 +14,13 @@ Many wearable devices today have a large screen, but are fundamentally limited i
 
 
 ### Hardware
-- PSoC CY8CKIT-042-BLE Pioneer Kit
-- Adafruit INA219 Breakout Board
-- Adafruit 0.96", 1.27", 1.5" OLED Display Breakout Board
+- [PSoC CY8CKIT-042-BLE Pioneer Kit](http://www.cypress.com/documentation/development-kitsboards/cy8ckit-042-ble-bluetooth-low-energy-ble-pioneer-kit)
+- [Adafruit INA219 Breakout Board](https://www.adafruit.com/product/904)
+- 3x [Adafruit 0.96" OLED Display Breakout Board](https://www.adafruit.com/products/684)
+- Other [OLED Displays](https://www.adafruit.com/products/1431) for comparison
 
 ### Software
-- PSoC Creator 4.0
+- [PSoC Creator 4.0](http://www.cypress.com/products/psoc-creator-integrated-design-environment-ide) on Windows 10
+
+### Acknowledgements
+Thank you to [Dr. Phillip Stanley-Marbell](http://www.phillipstanleymarbell.org/) for idea/debugging/analysis help and [Adafruit](https://github.com/adafruit) for amazing firmware libraries.
